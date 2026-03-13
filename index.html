@@ -380,25 +380,26 @@ nav ul a:hover { color: var(--black); }
 .cmp-table thead th {
   padding: 20px 28px;
   font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-  text-align: left; background: var(--blue-card);
-  border-bottom: 1px solid var(--blue-20); color: var(--blue);
+  text-align: left; background: var(--50);
+  border-bottom: 1px solid var(--200); color: var(--blue);
 }
-.cmp-table thead th:not(:last-child) { border-right: 1px solid var(--blue-20); }
-.cmp-table tbody tr:not(:last-child) td { border-bottom: 1px solid rgba(32,137,239,.1); }
-.cmp-table tbody tr:hover td { background: #e8f2fc; }
+.cmp-table thead th:not(:last-child) { border-right: 1px solid var(--200); }
+.cmp-table tbody tr:not(:last-child) td { border-bottom: 1px solid var(--200); }
+.cmp-table tbody tr:hover td { background: var(--blue-card); transition: background .18s ease; }
 .cmp-table td {
   padding: 22px 28px;
   font-size: 15px; font-weight: 400;
   vertical-align: top; line-height: 1.6;
-  background: var(--blue-card); transition: background .2s;
+  background: var(--white); transition: background .18s ease;
 }
-.cmp-table td:not(:last-child) { border-right: 1px solid rgba(32,137,239,.1); }
+.cmp-table td:not(:last-child) { border-right: 1px solid var(--200); }
 .cmp-table td:nth-child(1) { color: var(--600); }
 .cmp-table td:nth-child(2) { color: var(--600); }
 .cmp-table td:nth-child(3) { color: var(--black); font-weight: 500; }
 
 /* ─── CONTACT FORM ─── */
-.collab-wrap { max-width: 860px; margin: 0 auto; }
+.collab-wrap { max-width: 860px; margin: 0 auto; text-align: center; }
+.collab-wrap .h2 { text-align: center; }
 
 .form-sentence {
   font-family: 'Instrument Serif', serif;
@@ -406,7 +407,7 @@ nav ul a:hover { color: var(--black); }
   color: var(--black);
 }
 .form-sentence + .form-sentence { margin-top: 20px; }
-.fs-m { color: var(--400); font-style: italic; }
+.fs-m { color: var(--black); font-style: normal; }
 
 .fi {
   font-family: 'Instrument Serif', serif; font-size: 26px;
@@ -468,7 +469,7 @@ footer { background: var(--100); border-top: 1px solid var(--200); padding: 60px
 .ft-tagline { font-size: 14px; color: var(--400); font-weight: 300; margin-top: 8px; max-width: 220px; line-height: 1.65; }
 .ft-cols { display: flex; gap: 60px; flex-wrap: wrap; }
 .ft-col { display: flex; flex-direction: column; gap: 12px; }
-.ft-col-h { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--400); margin-bottom: 4px; }
+.ft-col-h { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--blue); margin-bottom: 4px; }
 .ft-col a { font-size: 15px; color: var(--600); text-decoration: none; transition: color .2s; }
 .ft-col a:hover { color: var(--black); }
 .ft-bottom {
@@ -503,9 +504,10 @@ footer { background: var(--100); border-top: 1px solid var(--200); padding: 60px
     <span class="logo-type">nat<span class="b">mad.</span></span>
   </a>
   <ul>
-    <li><a href="#problem">The Problem</a></li>
+    <li><a href="#problem">Problem</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#why">Why Natmad</a></li>
     <li><a href="#collab">Let's Collaborate</a></li>
     <li><a href="#collab" class="nav-pill">Book a Call</a></li>
   </ul>
@@ -612,7 +614,7 @@ footer { background: var(--100); border-top: 1px solid var(--200); padding: 60px
   <div class="svc-top rev">
     <div>
       <div class="sec-label">What We Offer</div>
-      <h2 class="h2">Three ways to<br>work with <em>natmad.</em></h2>
+      <h2 class="h2">Three ways to work with <span class="ib">natmad.</span></h2>
     </div>
     <p class="svc-note">Each offer is scoped for a different stage of your product journey.</p>
   </div>
@@ -625,8 +627,8 @@ footer { background: var(--100); border-top: 1px solid var(--200); padding: 60px
       <div class="chips">
         <span class="chip">UX Audit</span>
         <span class="chip">1–2 wks</span>
-        <span class="chip chip-w">4/mo Warranty</span>
       </div>
+      <!-- no warranty on 01 -->
     </div>
 
     <div class="svc-row">
@@ -658,9 +660,8 @@ footer { background: var(--100); border-top: 1px solid var(--200); padding: 60px
   <div class="pricing-top rev">
     <div>
       <div class="sec-label">Pricing</div>
-      <h2 class="h2">Three offers. Clear scope.<br><em>No surprises.</em></h2>
+      <h2 class="h2">Three offers. Clear scope.<br><span class="ib">No surprises.</span></h2>
     </div>
-    <p class="pricing-note">Flat-rate pricing designed for AI and Tech teams who move fast.</p>
   </div>
 
   <div class="pricing-grid rev d1">
@@ -696,7 +697,7 @@ footer { background: var(--100); border-top: 1px solid var(--200); padding: 60px
       <div class="p-card-desc">An embedded design partner delivering continuous product improvement every month.</div>
       <div class="p-divider"></div>
       <div class="p-amount"><span class="p-sym">$</span>5,000</div>
-      <div class="p-duration">per month / retainer</div>
+      <div class="p-duration">per month · min. 3 months</div>
       <a href="#collab" class="p-cta">
         Get started
         <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -710,9 +711,8 @@ footer { background: var(--100); border-top: 1px solid var(--200); padding: 60px
   <div class="cmp-top rev">
     <div>
       <div class="sec-label">Why Natmad</div>
-      <h2 class="h2">See how<br>we <em>compare.</em></h2>
+      <h2 class="h2">See how we <span class="ib">compare.</span></h2>
     </div>
-    <p class="cmp-sub">We sit at the intersection of agency quality, freelancer flexibility, and in-house dedication.</p>
   </div>
 
   <div class="rev d1">
@@ -764,14 +764,14 @@ footer { background: var(--100); border-top: 1px solid var(--200); padding: 60px
 <section class="sec sec-white grid" id="collab">
   <div class="collab-wrap rev">
     <div class="sec-label">Contact</div>
-    <h2 class="h2" style="margin-bottom:52px;">Let's <em>Collaborate.</em></h2>
+    <h2 class="h2" style="margin-bottom:52px;">Let's <span class="ib">Collaborate.</span></h2>
 
     <div id="theForm">
       <div class="form-sentence">
         <span class="fs-m">I go by</span>
-        <input class="fi" type="text" id="fname" placeholder="first &amp; last name" autocomplete="name" size="16">
+        <input class="fi" type="text" id="fname" name="name" placeholder="first &amp; last name" autocomplete="name" size="16">
         <span class="fs-m">from</span>
-        <input class="fi" type="text" id="fcompany" placeholder="your company" size="14">
+        <input class="fi" type="text" id="fcompany" name="company" placeholder="your company" size="14">
       </div>
 
       <div class="form-sentence">
@@ -781,26 +781,27 @@ footer { background: var(--100); border-top: 1px solid var(--200); padding: 60px
           <span class="p-chip-item" data-v="mobile">Mobile App</span>
           <span class="p-chip-item" data-v="website">Website</span>
         </span>
+        <input type="hidden" id="fplatform" name="platform">
       </div>
 
       <div class="form-sentence">
         <span class="fs-m">and I'm interested in</span>
-        <select class="fi-sel" id="fservice">
+        <select class="fi-sel" id="fservice" name="service">
           <option value="">select a service...</option>
-          <option value="diagnosis">Product Experience Diagnosis</option>
-          <option value="sprint">Targeted Design Sprint</option>
-          <option value="partner">Product Experience Partner</option>
-          <option value="unsure">Not sure yet</option>
+          <option value="Product Experience Diagnosis">Product Experience Diagnosis</option>
+          <option value="Targeted Design Sprint">Targeted Design Sprint</option>
+          <option value="Product Experience Partner">Product Experience Partner</option>
+          <option value="Not sure yet">Not sure yet</option>
         </select>
       </div>
 
       <div class="form-sentence">
         <span class="fs-m">Reach me at</span>
-        <input class="fi" type="email" id="femail" placeholder="your@email.com" size="20" autocomplete="email">
+        <input class="fi" type="email" id="femail" name="email" placeholder="your@email.com" size="20" autocomplete="email">
       </div>
 
-      <div class="submit-row">
-        <button class="btn btn-blue" onclick="handleSend(event)">
+      <div class="submit-row" style="display:flex;justify-content:center;">
+        <button class="btn btn-blue" id="submitBtn" onclick="handleSend(event)">
           Send message
           <span class="btn-arrow">
             <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -839,7 +840,7 @@ footer { background: var(--100); border-top: 1px solid var(--200); padding: 60px
       <div class="ft-col">
         <div class="ft-col-h">Connect</div>
         <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="mailto:sri@natmad.studio">Contact</a>
+        <a href="mailto:sri@natmad.studio">sri@natmad.studio</a>
       </div>
     </div>
   </div>
@@ -879,15 +880,47 @@ document.querySelectorAll('.p-chip-item').forEach(c => {
   c.addEventListener('click', () => c.classList.toggle('on'));
 });
 
-/* FORM SUBMIT */
-function handleSend(e) {
+/* FORM SUBMIT — Formspree */
+async function handleSend(e) {
   e.preventDefault();
   const name  = document.getElementById('fname').value.trim();
   const email = document.getElementById('femail').value.trim();
   if (!name)  { document.getElementById('fname').focus();  return; }
   if (!email) { document.getElementById('femail').focus(); return; }
-  document.getElementById('theForm').style.display = 'none';
-  document.getElementById('successMsg').style.display = 'block';
+
+  // collect platform selections
+  const selected = [...document.querySelectorAll('.p-chip-item.on')].map(c => c.dataset.v).join(', ');
+  document.getElementById('fplatform').value = selected;
+
+  const btn = document.getElementById('submitBtn');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  const data = {
+    name:     name,
+    company:  document.getElementById('fcompany').value.trim(),
+    platform: selected,
+    service:  document.getElementById('fservice').value,
+    email:    email
+  };
+
+  try {
+    const res = await fetch('https://formspree.io/f/xqeylppk', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    if (res.ok) {
+      document.getElementById('theForm').style.display = 'none';
+      document.getElementById('successMsg').style.display = 'block';
+    } else {
+      btn.textContent = 'Try again';
+      btn.disabled = false;
+    }
+  } catch(err) {
+    btn.textContent = 'Try again';
+    btn.disabled = false;
+  }
 }
 </script>
 </body>
