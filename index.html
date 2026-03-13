@@ -3,925 +3,245 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>natmad. — Product Design & Experience Studio</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<title>Cirkl — Plan Events Together</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
 <style>
-/* ─── TOKENS ─── */
-:root {
-  --blue:      #2089ef;
-  --blue-t:    rgba(32,137,239,0.08);
-  --blue-20:   rgba(32,137,239,0.18);
-  --blue-card: #EDF5FD;
-  --black:     #0f0f0f;
-  --700:       #3a3a3a;
-  --600:       #555555;
-  --500:       #6e6e6e;
-  --400:       #999999;
-  --300:       #c8c8c8;
-  --200:       #e0e0e0;
-  --100:       #f2f2f0;
-  --50:        #f8f8f7;
-  --white:     #ffffff;
-  --gc:        rgba(0,0,0,0.05);
-  --gs:        58px;
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--white);
-  color: var(--black);
-  font-family: 'Manrope', sans-serif;
-  font-size: 16px;
-  line-height: 1.7;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-  cursor: none;
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
-/* ─── CURSOR ─── */
-.cur-dot {
-  position: fixed; pointer-events: none; z-index: 9999;
-  width: 6px; height: 6px; background: var(--black);
-  border-radius: 50%; transform: translate(-50%,-50%);
-  transition: background .2s, transform .15s;
-}
-.cur-ring {
-  position: fixed; pointer-events: none; z-index: 9998;
-  width: 32px; height: 32px;
-  border: 1.5px solid var(--black); border-radius: 50%;
-  transform: translate(-50%,-50%);
-  transition: width .35s cubic-bezier(.23,1,.32,1),
-              height .35s cubic-bezier(.23,1,.32,1),
-              border-color .25s, border-radius .35s;
-  opacity: .4;
-}
-.cur-ring.hl { width: 52px; height: 52px; background: var(--blue-t); border-color: var(--blue); opacity: 1; }
-.cur-dot.hl  { background: var(--blue); transform: translate(-50%,-50%) scale(1.5); }
-
-/* ─── GRID TEXTURE ─── */
-.grid::before {
-  content: '';
-  position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background-image:
-    linear-gradient(var(--gc) 1px, transparent 1px),
-    linear-gradient(90deg, var(--gc) 1px, transparent 1px);
-  background-size: var(--gs) var(--gs);
-}
-.grid > * { position: relative; z-index: 1; }
-
-/* ─── NAV ─── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-  height: 64px;
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 0 56px;
-  background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--200);
-}
-.logo { display: flex; align-items: center; gap: 9px; text-decoration: none; }
-.logo-star { width: 20px; height: 22px; flex-shrink: 0; }
-.logo-star img { width: 100%; height: 100%; display: block; }
-.logo-type {
-  font-family: 'Instrument Serif', serif;
-  font-size: 22px; line-height: 1; color: var(--black);
-}
-.logo-type .b { color: var(--blue); }
-nav ul { display: flex; gap: 32px; list-style: none; align-items: center; }
-nav ul a {
-  font-size: 13px; font-weight: 500; color: var(--500);
-  text-decoration: none; letter-spacing: .02em; transition: color .2s;
-}
-nav ul a:hover { color: var(--black); }
-.nav-pill {
-  background: var(--blue) !important; color: var(--white) !important;
-  padding: 9px 22px; border-radius: 100px;
-  font-weight: 600 !important; letter-spacing: .02em !important;
-  transition: opacity .2s !important;
-}
-.nav-pill:hover { opacity: .88; }
-
-/* ─── HERO ─── */
-.hero {
-  min-height: 100vh;
-  padding: 156px 56px 100px;
-  display: flex; flex-direction: column; justify-content: flex-end;
-  background: var(--white); overflow: hidden; position: relative;
-}
-.hero::before {
-  content: '';
-  position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background-image:
-    linear-gradient(var(--gc) 1px, transparent 1px),
-    linear-gradient(90deg, var(--gc) 1px, transparent 1px);
-  background-size: var(--gs) var(--gs);
-}
-.hero::after {
-  content: '';
-  position: absolute; top: -100px; right: -60px;
-  width: 560px; height: 560px;
-  background: radial-gradient(circle, rgba(32,137,239,.09) 0%, transparent 65%);
-  pointer-events: none; z-index: 0;
-}
-.hero-inner { position: relative; z-index: 1; }
-
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 9px;
-  background: var(--100); border: 1px solid var(--200);
-  padding: 7px 16px; border-radius: 100px;
-  font-size: 11px; font-weight: 700; color: var(--600);
-  letter-spacing: .1em; text-transform: uppercase;
-  margin-bottom: 40px; width: fit-content;
-  animation: fadeUp .5s ease both;
-}
-.badge-dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: var(--blue); animation: blink 2.5s ease-in-out infinite;
+body{
+font-family:Manrope, sans-serif;
+background:#ffffff;
+color:#111;
+line-height:1.75;
+font-size:17px;
+-webkit-font-smoothing:antialiased;
 }
 
-.hero-h1 {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(52px, 7vw, 96px);
-  line-height: 1.01; letter-spacing: -1.5px;
-  color: var(--black); max-width: 900px;
-  animation: fadeUp .6s ease .07s both;
-}
-.hero-h1 .t-blue { color: var(--blue); }
-
-.hero-bottom {
-  display: flex; justify-content: space-between; align-items: flex-end;
-  margin-top: 52px; flex-wrap: wrap; gap: 28px;
-  animation: fadeUp .6s ease .14s both;
-}
-.hero-sub {
-  font-size: 17px; font-weight: 300; color: var(--600);
-  max-width: 440px; line-height: 1.85;
-}
-.hero-sub em { font-style: italic; color: var(--blue); }
-.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
-
-/* ─── BUTTONS ─── */
-.btn {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 600;
-  padding: 14px 28px; border-radius: 100px;
-  border: none; cursor: pointer; text-decoration: none;
-  letter-spacing: .01em; position: relative; overflow: hidden;
-  transition: transform .25s cubic-bezier(.23,1,.32,1), box-shadow .25s, opacity .2s;
-}
-.btn:hover { transform: translateY(-2px); }
-
-.btn-blue { background: var(--blue); color: var(--white); box-shadow: 0 4px 20px rgba(32,137,239,.22); }
-.btn-blue::after {
-  content: ''; position: absolute; top: 0; left: -100%;
-  width: 55%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent);
-  transform: skewX(-18deg); transition: left .55s ease;
-}
-.btn-blue:hover::after { left: 160%; }
-.btn-blue:hover { box-shadow: 0 8px 32px rgba(32,137,239,.35); }
-
-.btn-outline { background: transparent; color: var(--black); border: 1.5px solid var(--200); }
-.btn-outline:hover { border-color: var(--black); }
-
-.btn-arrow { transition: transform .25s cubic-bezier(.23,1,.32,1); display: inline-flex; }
-.btn:hover .btn-arrow { transform: translateX(4px); }
-
-/* ─── TICKER ─── */
-.strip {
-  border-top: 1px solid var(--200); border-bottom: 1px solid var(--200);
-  padding: 18px 0; overflow: hidden; background: var(--100);
-}
-.strip-track { display: flex; animation: ticker 34s linear infinite; width: max-content; }
-.strip-item {
-  display: flex; align-items: center; gap: 16px; padding: 0 36px;
-  font-size: 11px; font-weight: 700; color: var(--400);
-  letter-spacing: .12em; text-transform: uppercase; white-space: nowrap;
-}
-.strip-sep { color: var(--blue); font-size: 14px; }
-@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-/* ─── SECTION HELPERS ─── */
-.sec       { padding: 108px 56px; position: relative; }
-.sec-white { background: var(--white); }
-.sec-off   { background: var(--100); }
-
-.sec-label {
-  font-size: 11px; font-weight: 700;
-  letter-spacing: .14em; text-transform: uppercase;
-  color: var(--400); margin-bottom: 16px;
-}
-.h2 {
-  font-family: 'Instrument Serif', serif;
-  font-size: clamp(40px, 4.5vw, 62px);
-  line-height: 1.06; letter-spacing: -1px; color: var(--black);
-}
-.h2 em     { font-style: italic; color: var(--400); }
-.h2 .ib    { font-style: italic; color: var(--blue); }
-
-/* ─── PROBLEM ─── */
-.prob-top {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 60px; align-items: end; margin-bottom: 52px;
-}
-.prob-body { font-size: 17px; font-weight: 300; color: var(--600); line-height: 1.85; }
-
-.stats-grid {
-  display: grid; grid-template-columns: repeat(3,1fr);
-  gap: 1px; background: var(--200);
-  border: 1px solid var(--200); border-radius: 18px; overflow: hidden;
-}
-.stats-grid + .stats-grid { margin-top: 14px; }
-
-.stat-tile {
-  background: var(--white); padding: 40px 32px;
-  display: flex; flex-direction: column; gap: 10px;
-  transition: background .2s;
-}
-.stat-tile:hover { background: var(--50); }
-
-.stat-n {
-  font-family: 'Instrument Serif', serif;
-  font-size: 52px; letter-spacing: -2px; line-height: 1; color: var(--black);
-}
-.stat-n .b { color: var(--blue); }
-.stat-l { font-size: 15px; font-weight: 400; color: var(--600); line-height: 1.6; }
-
-/* ─── SERVICES ─── */
-.svc-top {
-  display: flex; justify-content: space-between; align-items: flex-end;
-  flex-wrap: wrap; gap: 20px;
-}
-.svc-note { font-size: 15px; color: var(--600); font-weight: 300; max-width: 260px; line-height: 1.75; }
-.svc-list { margin-top: 56px; }
-
-.svc-row {
-  display: grid;
-  grid-template-columns: 88px 1fr 1.1fr auto;
-  align-items: center; gap: 36px;
-  padding: 36px 0;
-  border-bottom: 1px solid var(--200);
-  cursor: pointer; position: relative;
-  transition: padding-left .35s cubic-bezier(.23,1,.32,1);
-}
-.svc-row:first-child { border-top: 1px solid var(--200); }
-.svc-row::after {
-  content: ''; position: absolute; bottom: -1px; left: 0;
-  height: 1.5px; width: 0; background: var(--blue);
-  transition: width .45s cubic-bezier(.23,1,.32,1);
-}
-.svc-row:hover::after { width: 100%; }
-.svc-row:hover { padding-left: 14px; }
-
-.svc-num {
-  font-family: 'Instrument Serif', serif;
-  font-size: 52px; font-style: italic;
-  color: var(--200); line-height: 1;
-  transition: color .25s;
-}
-.svc-row:hover .svc-num { color: var(--blue); }
-
-.svc-name {
-  font-family: 'Instrument Serif', serif;
-  font-size: 32px; letter-spacing: -.8px; color: var(--black);
-  line-height: 1.15; transition: color .2s;
-}
-.svc-row:hover .svc-name { color: var(--blue); }
-
-.svc-desc { font-size: 15px; color: var(--600); font-weight: 300; line-height: 1.75; }
-
-.chips { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
-.chip {
-  font-size: 11px; font-weight: 600; letter-spacing: .05em;
-  padding: 5px 13px; border-radius: 100px;
-  border: 1.5px solid var(--200); color: var(--600); white-space: nowrap;
-  transition: border-color .2s, color .2s;
-}
-.chip-w { background: var(--blue-t); border-color: var(--blue-20) !important; color: var(--blue) !important; }
-.svc-row:hover .chip:not(.chip-w) { border-color: var(--blue); color: var(--blue); }
-
-/* ─── PRICING ─── */
-.pricing-top {
-  display: flex; justify-content: space-between; align-items: flex-end;
-  flex-wrap: wrap; gap: 20px; margin-bottom: 56px;
-}
-.pricing-note { font-size: 15px; color: var(--600); font-weight: 300; max-width: 260px; line-height: 1.75; }
-
-.pricing-grid {
-  display: grid; grid-template-columns: repeat(3,1fr);
-  gap: 1px; background: var(--200);
-  border: 1px solid var(--200); border-radius: 24px; overflow: hidden;
+.container{
+max-width:1100px;
+margin:auto;
+padding:0 24px;
 }
 
-.p-card {
-  background: var(--blue-card);
-  padding: 52px 44px;
-  display: flex; flex-direction: column;
-  position: relative; overflow: hidden;
-  transition: background .25s;
-}
-.p-card:hover { background: #daeaf9; }
-.p-card::before {
-  content: ''; position: absolute; top: -40px; right: -40px;
-  width: 180px; height: 180px;
-  background: radial-gradient(circle, rgba(32,137,239,.12) 0%, transparent 70%);
-  pointer-events: none;
+section{
+padding:120px 0;
 }
 
-.p-card-idx {
-  font-size: 11px; font-weight: 700; letter-spacing: .12em;
-  text-transform: uppercase; color: var(--blue); opacity: .5; margin-bottom: 20px;
-}
-.p-card-name {
-  font-family: 'Instrument Serif', serif;
-  font-size: 28px; letter-spacing: -.4px; color: var(--black);
-  line-height: 1.2; margin-bottom: 12px;
-}
-.p-card-desc {
-  font-size: 15px; font-weight: 300; color: var(--600);
-  line-height: 1.75; margin-bottom: 36px; flex: 1;
-}
-.p-divider { width: 100%; height: 1px; background: var(--blue-20); margin-bottom: 28px; }
-
-.p-amount {
-  font-family: 'Instrument Serif', serif;
-  font-size: 52px; letter-spacing: -2px; line-height: 1;
-  color: var(--black); margin-bottom: 6px;
-}
-.p-sym { font-size: 28px; vertical-align: top; margin-top: 8px; display: inline-block; }
-.p-duration {
-  font-size: 13px; font-weight: 600; color: var(--500);
-  letter-spacing: .04em; text-transform: uppercase; margin-bottom: 32px;
+h1{
+font-family:"Instrument Serif",serif;
+font-size:clamp(64px,7vw,104px);
+letter-spacing:-2px;
+line-height:1.02;
+margin-bottom:24px;
 }
 
-.p-cta {
-  display: inline-flex; align-items: center; gap: 9px;
-  font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 600;
-  padding: 13px 24px; border-radius: 100px;
-  background: var(--blue); color: var(--white);
-  border: none; cursor: pointer; text-decoration: none; width: fit-content;
-  box-shadow: 0 4px 16px rgba(32,137,239,.2);
-  transition: transform .2s, opacity .2s, box-shadow .2s;
+h2{
+font-family:"Instrument Serif",serif;
+font-size:clamp(44px,4vw,64px);
+letter-spacing:-1px;
+line-height:1.1;
+margin-bottom:32px;
 }
-.p-cta:hover { transform: translateY(-2px); opacity: .92; box-shadow: 0 8px 28px rgba(32,137,239,.3); }
 
-/* ─── WHY NATMAD ─── */
-.cmp-top {
-  display: flex; justify-content: space-between; align-items: flex-end;
-  flex-wrap: wrap; gap: 20px; margin-bottom: 56px;
+p{
+max-width:65ch;
+color:#555;
+font-size:18px;
 }
-.cmp-sub { font-size: 15px; color: var(--600); font-weight: 300; max-width: 320px; line-height: 1.75; }
 
-.cmp-table {
-  width: 100%; border: 1px solid var(--200);
-  border-radius: 20px; overflow: hidden;
-  border-collapse: separate; border-spacing: 0;
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:24px 0;
 }
-.cmp-table thead th {
-  padding: 20px 28px;
-  font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-  text-align: left; background: var(--50);
-  border-bottom: 1px solid var(--200); color: var(--blue);
-}
-.cmp-table thead th:not(:last-child) { border-right: 1px solid var(--200); }
-.cmp-table tbody tr:not(:last-child) td { border-bottom: 1px solid var(--200); }
-.cmp-table tbody tr:hover td { background: var(--blue-card); transition: background .18s ease; }
-.cmp-table td {
-  padding: 22px 28px;
-  font-size: 15px; font-weight: 400;
-  vertical-align: top; line-height: 1.6;
-  background: var(--white); transition: background .18s ease;
-}
-.cmp-table td:not(:last-child) { border-right: 1px solid var(--200); }
-.cmp-table td:nth-child(1) { color: var(--600); }
-.cmp-table td:nth-child(2) { color: var(--600); }
-.cmp-table td:nth-child(3) { color: var(--black); font-weight: 500; }
 
-/* ─── CONTACT FORM ─── */
-.collab-wrap { max-width: 860px; margin: 0 auto; text-align: center; }
-.collab-wrap .h2 { text-align: center; }
+nav a{
+text-decoration:none;
+color:#444;
+font-size:14px;
+font-weight:500;
+margin-left:28px;
+}
 
-.form-sentence {
-  font-family: 'Instrument Serif', serif;
-  font-size: 26px; letter-spacing: -.3px; line-height: 2;
-  color: var(--black);
+.hero{
+padding-top:140px;
 }
-.form-sentence + .form-sentence { margin-top: 20px; }
-.fs-m { color: var(--black); font-style: normal; }
 
-.fi {
-  font-family: 'Instrument Serif', serif; font-size: 26px;
-  letter-spacing: -.3px; background: transparent; border: none;
-  border-bottom: 1.5px solid var(--300); outline: none;
-  color: var(--black); padding: 0 4px 2px;
-  width: auto; min-width: 160px; transition: border-color .2s;
+.hero p{
+margin-top:12px;
 }
-.fi::placeholder { color: var(--300); font-style: italic; }
-.fi:focus { border-color: var(--blue); }
 
-.p-chips { display: inline-flex; gap: 8px; flex-wrap: wrap; vertical-align: middle; margin: 0 4px; }
-.p-chip-item {
-  font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600;
-  letter-spacing: .04em; padding: 6px 16px; border-radius: 100px;
-  border: 1.5px solid var(--200); color: var(--600);
-  cursor: pointer; user-select: none; white-space: nowrap;
-  transition: border-color .2s, color .2s, background .2s;
+.button{
+display:inline-block;
+margin-top:32px;
+padding:14px 26px;
+background:black;
+color:white;
+border-radius:6px;
+text-decoration:none;
+font-weight:500;
 }
-.p-chip-item.on { border-color: var(--blue); color: var(--blue); background: var(--blue-t); }
 
-.fi-sel {
-  font-family: 'Instrument Serif', serif; font-size: 26px;
-  letter-spacing: -.3px; background: transparent; border: none;
-  border-bottom: 1.5px solid var(--300); outline: none;
-  color: var(--black); padding: 0 4px 2px; cursor: pointer;
-  appearance: none; -webkit-appearance: none; transition: border-color .2s;
+.features{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:48px;
+margin-top:60px;
 }
-.fi-sel:focus { border-color: var(--blue); }
-.fi-sel option { font-family: 'Manrope', sans-serif; font-size: 16px; }
 
-.submit-row { margin-top: 48px; }
+.feature h3{
+font-size:20px;
+margin-bottom:12px;
+}
 
-.success-msg {
-  display: none; text-align: center; padding: 60px 20px;
+.pricing{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:32px;
+margin-top:60px;
 }
-.success-icon {
-  width: 52px; height: 52px; border-radius: 50%;
-  background: var(--blue-t); border: 1.5px solid var(--blue-20);
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 20px; font-size: 20px; color: var(--blue);
-}
-.success-title {
-  font-family: 'Instrument Serif', serif;
-  font-size: 36px; letter-spacing: -1px; color: var(--black); margin-bottom: 10px;
-}
-.success-sub { font-size: 16px; color: var(--600); font-weight: 300; }
 
-/* ─── FOOTER ─── */
-footer { background: var(--100); border-top: 1px solid var(--200); padding: 60px 56px 36px; }
-.ft-top {
-  display: flex; justify-content: space-between;
-  padding-bottom: 44px; border-bottom: 1px solid var(--200);
-  flex-wrap: wrap; gap: 40px;
+.card{
+border:1px solid #eee;
+padding:36px;
+border-radius:12px;
 }
-.ft-logo { display: flex; align-items: center; gap: 9px; text-decoration: none; }
-.ft-logo-type { font-family: 'Instrument Serif', serif; font-size: 20px; color: var(--black); }
-.ft-logo-type .b { color: var(--blue); }
-.ft-tagline { font-size: 14px; color: var(--400); font-weight: 300; margin-top: 8px; max-width: 220px; line-height: 1.65; }
-.ft-cols { display: flex; gap: 60px; flex-wrap: wrap; }
-.ft-col { display: flex; flex-direction: column; gap: 12px; }
-.ft-col-h { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--blue); margin-bottom: 4px; }
-.ft-col a { font-size: 15px; color: var(--600); text-decoration: none; transition: color .2s; }
-.ft-col a:hover { color: var(--black); }
-.ft-bottom {
-  display: flex; justify-content: space-between; align-items: center;
-  padding-top: 28px; flex-wrap: wrap; gap: 12px;
-}
-.ft-copy { font-size: 13px; color: var(--400); }
-.ft-email { font-size: 13px; color: var(--600); text-decoration: none; transition: color .2s; }
-.ft-email:hover { color: var(--blue); }
 
-/* ─── ANIMATIONS ─── */
-@keyframes fadeUp { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:translateY(0); } }
-@keyframes blink  { 0%,100%{opacity:1} 50%{opacity:.3} }
-.rev { opacity:0; transform:translateY(24px); transition: opacity .65s ease, transform .65s ease; }
-.rev.in { opacity:1; transform:translateY(0); }
-.d1 { transition-delay: .1s; }
-.d2 { transition-delay: .2s; }
-.d3 { transition-delay: .3s; }
+.price{
+font-family:"Instrument Serif",serif;
+font-size:64px;
+letter-spacing:-2px;
+margin:16px 0;
+}
+
+footer{
+padding:80px 0;
+border-top:1px solid #eee;
+color:#777;
+font-size:14px;
+}
+
 </style>
 </head>
+
 <body>
 
-<div class="cur-dot" id="curDot"></div>
-<div class="cur-ring" id="curRing"></div>
+<div class="container">
 
-<!-- NAV -->
 <nav>
-  <a href="/" class="logo">
-    <div class="logo-star">
-      <img src="https://www.figma.com/api/mcp/asset/513fa857-d46d-4c14-b943-022d4c769e4d" alt="natmad star mark">
-    </div>
-    <span class="logo-type">nat<span class="b">mad.</span></span>
-  </a>
-  <ul>
-    <li><a href="#problem">Problem</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#why">Why Natmad</a></li>
-    <li><a href="#collab">Let's Collaborate</a></li>
-    <li><a href="#collab" class="nav-pill">Book a Call</a></li>
-  </ul>
+<div><strong>Cirkl</strong></div>
+
+<div>
+<a href="#">Features</a>
+<a href="#">Pricing</a>
+<a href="#">Contact</a>
+</div>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-inner">
-    <div class="hero-badge">
-      <span class="badge-dot"></span>
-      Product Design &amp; Experience Studio
-    </div>
-
-    <h1 class="hero-h1">
-      Growth-focused product<br>
-      design &amp; experience partners<br>
-      for <span class="t-blue">AI &amp; Tech teams.</span>
-    </h1>
-
-    <div class="hero-bottom">
-      <p class="hero-sub">
-        We close the gap between how smart your product is and how smart it <em>feels.</em> Sharp design, real outcomes.
-      </p>
-      <div class="hero-actions">
-        <a href="#collab" class="btn btn-blue">
-          Start a project
-          <span class="btn-arrow">
-            <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
-        </a>
-        <a href="#services" class="btn btn-outline">See how it works</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TICKER -->
-<div class="strip">
-  <div class="strip-track">
-    <div class="strip-item">Product Experience Sprint <span class="strip-sep">✦</span></div>
-    <div class="strip-item">Targeted Design Sprint <span class="strip-sep">✦</span></div>
-    <div class="strip-item">Product Experience Partner <span class="strip-sep">✦</span></div>
-    <div class="strip-item">UX Audit <span class="strip-sep">✦</span></div>
-    <div class="strip-item">Activation Design <span class="strip-sep">✦</span></div>
-    <div class="strip-item">Journey Mapping <span class="strip-sep">✦</span></div>
-    <div class="strip-item">Dev Handoff <span class="strip-sep">✦</span></div>
-    <div class="strip-item">Design Systems <span class="strip-sep">✦</span></div>
-    <div class="strip-item">Product Experience Sprint <span class="strip-sep">✦</span></div>
-    <div class="strip-item">Targeted Design Sprint <span class="strip-sep">✦</span></div>
-    <div class="strip-item">Product Experience Partner <span class="strip-sep">✦</span></div>
-    <div class="strip-item">UX Audit <span class="strip-sep">✦</span></div>
-    <div class="strip-item">Activation Design <span class="strip-sep">✦</span></div>
-    <div class="strip-item">Journey Mapping <span class="strip-sep">✦</span></div>
-    <div class="strip-item">Dev Handoff <span class="strip-sep">✦</span></div>
-    <div class="strip-item">Design Systems <span class="strip-sep">✦</span></div>
-  </div>
 </div>
 
-<!-- PROBLEM -->
-<section class="sec sec-white grid" id="problem">
-  <div class="prob-top rev">
-    <div>
-      <div class="sec-label">The Problem</div>
-      <h2 class="h2">Customers lost to bad<br><span class="ib">experience.</span></h2>
-    </div>
-    <p class="prob-body">
-      32% of customers leave after just one bad experience. 70% abandon purchases because of poor UX. The numbers are industry-wide and your product is not immune.
-    </p>
-  </div>
 
-  <div class="stats-grid rev d1">
-    <div class="stat-tile">
-      <div class="stat-n">88<span class="b">%</span></div>
-      <div class="stat-l">won't return after a bad UX experience</div>
-    </div>
-    <div class="stat-tile">
-      <div class="stat-n">8<span class="b">s</span></div>
-      <div class="stat-l">to form a first impression — visuals decide if they stay</div>
-    </div>
-    <div class="stat-tile">
-      <div class="stat-n">3<span class="b">×</span></div>
-      <div class="stat-l">higher conversions with great UX — McKinsey</div>
-    </div>
-  </div>
+<section class="hero">
+<div class="container">
 
-  <div class="stats-grid rev d2">
-    <div class="stat-tile">
-      <div class="stat-n">32<span class="b">%</span></div>
-      <div class="stat-l">of customers leave after just one bad experience</div>
-    </div>
-    <div class="stat-tile">
-      <div class="stat-n">70<span class="b">%</span></div>
-      <div class="stat-l">abandon purchases due to poor UX</div>
-    </div>
-    <div class="stat-tile">
-      <div class="stat-n">$1.5<span class="b">T</span></div>
-      <div class="stat-l">lost annually to poor digital experiences globally</div>
-    </div>
-  </div>
+<h1>
+Plan events together.<br>
+Without the chaos.
+</h1>
+
+<p>
+Cirkl helps groups organize private and public events with RSVP,
+chat, expense tracking, and coordination in one place.
+</p>
+
+<a class="button">Get Started</a>
+
+</div>
 </section>
 
-<!-- SERVICES -->
-<section class="sec sec-off" id="services">
-  <div class="svc-top rev">
-    <div>
-      <div class="sec-label">What We Offer</div>
-      <h2 class="h2">Three ways to work with <span class="ib">natmad.</span></h2>
-    </div>
-    <p class="svc-note">Each offer is scoped for a different stage of your product journey.</p>
-  </div>
 
-  <div class="svc-list rev d1">
-    <div class="svc-row">
-      <span class="svc-num">01</span>
-      <div class="svc-name">Product Experience Diagnosis</div>
-      <div class="svc-desc">A full UX audit covering activation, retention risk and friction mapping. Walk away with a prioritised, ready-to-act plan.</div>
-      <div class="chips">
-        <span class="chip">UX Audit</span>
-        <span class="chip">1–2 wks</span>
-      </div>
-      <!-- no warranty on 01 -->
-    </div>
 
-    <div class="svc-row">
-      <span class="svc-num">02</span>
-      <div class="svc-name">Targeted Design Sprint</div>
-      <div class="svc-desc">One critical flow redesigned end-to-end. Research, high-fidelity Full UI/UX, dev-ready handoff. Done in 4 weeks.</div>
-      <div class="chips">
-        <span class="chip">Full UI/UX</span>
-        <span class="chip">4 wks</span>
-        <span class="chip chip-w">4/mo Warranty</span>
-      </div>
-    </div>
+<section>
+<div class="container">
 
-    <div class="svc-row">
-      <span class="svc-num">03</span>
-      <div class="svc-name">Product Experience Partner</div>
-      <div class="svc-desc">An embedded design partner for your team. Weekly sessions, continuous iteration, full product improvement over time.</div>
-      <div class="chips">
-        <span class="chip">3mo / Retainer +</span>
-        <span class="chip">Ongoing</span>
-        <span class="chip chip-w">4/mo Warranty</span>
-      </div>
-    </div>
-  </div>
+<h2>Everything needed to plan events</h2>
+
+<div class="features">
+
+<div class="feature">
+<h3>Event creation</h3>
+<p>Create private or public events in seconds and invite your circle.</p>
+</div>
+
+<div class="feature">
+<h3>RSVP tracking</h3>
+<p>Know exactly who’s attending and manage guest lists easily.</p>
+</div>
+
+<div class="feature">
+<h3>Group chat</h3>
+<p>Keep all event discussions in one place instead of scattered messages.</p>
+</div>
+
+<div class="feature">
+<h3>Expense splitting</h3>
+<p>Track costs and split payments transparently between attendees.</p>
+</div>
+
+</div>
+
+</div>
 </section>
 
-<!-- PRICING -->
-<section class="sec sec-white grid" id="pricing">
-  <div class="pricing-top rev">
-    <div>
-      <div class="sec-label">Pricing</div>
-      <h2 class="h2">Three offers. Clear scope.<br><span class="ib">No surprises.</span></h2>
-    </div>
-  </div>
 
-  <div class="pricing-grid rev d1">
-    <div class="p-card">
-      <div class="p-card-idx">01</div>
-      <div class="p-card-name">Product Experience Diagnosis</div>
-      <div class="p-card-desc">A clear map of where your product loses users and exactly what to fix first.</div>
-      <div class="p-divider"></div>
-      <div class="p-amount"><span class="p-sym">$</span>1,500</div>
-      <div class="p-duration">1–2 weeks</div>
-      <a href="#collab" class="p-cta">
-        Get started
-        <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </div>
 
-    <div class="p-card">
-      <div class="p-card-idx">02</div>
-      <div class="p-card-name">Targeted Design Sprint</div>
-      <div class="p-card-desc">One critical flow redesigned end-to-end with full UI/UX and dev-ready handoff.</div>
-      <div class="p-divider"></div>
-      <div class="p-amount"><span class="p-sym">$</span>4,500</div>
-      <div class="p-duration">4 weeks</div>
-      <a href="#collab" class="p-cta">
-        Get started
-        <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </div>
+<section>
+<div class="container">
 
-    <div class="p-card">
-      <div class="p-card-idx">03</div>
-      <div class="p-card-name">Product Experience Partner</div>
-      <div class="p-card-desc">An embedded design partner delivering continuous product improvement every month.</div>
-      <div class="p-divider"></div>
-      <div class="p-amount"><span class="p-sym">$</span>5,000</div>
-      <div class="p-duration">per month · min. 3 months</div>
-      <a href="#collab" class="p-cta">
-        Get started
-        <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </div>
-  </div>
+<h2>Simple pricing</h2>
+
+<div class="pricing">
+
+<div class="card">
+<h3>Starter</h3>
+<div class="price">$0</div>
+<p>Perfect for small groups and casual events.</p>
+</div>
+
+<div class="card">
+<h3>Pro</h3>
+<div class="price">$12</div>
+<p>Advanced tools for organizers and larger events.</p>
+</div>
+
+<div class="card">
+<h3>Teams</h3>
+<div class="price">$29</div>
+<p>Best for communities and event managers.</p>
+</div>
+
+</div>
+
+</div>
 </section>
 
-<!-- WHY NATMAD -->
-<section class="sec sec-off" id="why">
-  <div class="cmp-top rev">
-    <div>
-      <div class="sec-label">Why Natmad</div>
-      <h2 class="h2">See how we <span class="ib">compare.</span></h2>
-    </div>
-  </div>
 
-  <div class="rev d1">
-    <table class="cmp-table">
-      <thead>
-        <tr>
-          <th>In-house Team</th>
-          <th>Freelancers</th>
-          <th>Natmad Studio</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1–3 months to hire and onboard</td>
-          <td>Quick to start but often unstructured</td>
-          <td>Short onboarding, structured start</td>
-        </tr>
-        <tr>
-          <td>Internal processes take time to establish</td>
-          <td>Limited / unstructured product design process</td>
-          <td>Structured product design workflow</td>
-        </tr>
-        <tr>
-          <td>Large learning curve before meaningful impact</td>
-          <td>Limited scope and product thinking</td>
-          <td>Integrated product team built for AI &amp; Tech teams</td>
-        </tr>
-        <tr>
-          <td>Accountability managed internally by the company</td>
-          <td>Accountability often ends once the project is delivered</td>
-          <td>4-month post-delivery support &amp; warranty</td>
-        </tr>
-        <tr>
-          <td>Requires internal coordination with developers</td>
-          <td>Basic design file handoff</td>
-          <td>Dev-ready handoff and regular developer sessions</td>
-        </tr>
-        <tr>
-          <td>Requires internal management and oversight</td>
-          <td>Requires constant monitoring</td>
-          <td>Integrated workflow and async communication</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
 
-<!-- LET'S COLLABORATE -->
-<section class="sec sec-white grid" id="collab">
-  <div class="collab-wrap rev">
-    <div class="sec-label">Contact</div>
-    <h2 class="h2" style="margin-bottom:52px;">Let's <span class="ib">Collaborate.</span></h2>
-
-    <div id="theForm">
-      <div class="form-sentence">
-        <span class="fs-m">I go by</span>
-        <input class="fi" type="text" id="fname" name="name" placeholder="first &amp; last name" autocomplete="name" size="16">
-        <span class="fs-m">from</span>
-        <input class="fi" type="text" id="fcompany" name="company" placeholder="your company" size="14">
-      </div>
-
-      <div class="form-sentence">
-        <span class="fs-m">I'm building a</span>
-        <span class="p-chips" id="pChips">
-          <span class="p-chip-item" data-v="web">Web App</span>
-          <span class="p-chip-item" data-v="mobile">Mobile App</span>
-          <span class="p-chip-item" data-v="website">Website</span>
-        </span>
-        <input type="hidden" id="fplatform" name="platform">
-      </div>
-
-      <div class="form-sentence">
-        <span class="fs-m">and I'm interested in</span>
-        <select class="fi-sel" id="fservice" name="service">
-          <option value="">select a service...</option>
-          <option value="Product Experience Diagnosis">Product Experience Diagnosis</option>
-          <option value="Targeted Design Sprint">Targeted Design Sprint</option>
-          <option value="Product Experience Partner">Product Experience Partner</option>
-          <option value="Not sure yet">Not sure yet</option>
-        </select>
-      </div>
-
-      <div class="form-sentence">
-        <span class="fs-m">Reach me at</span>
-        <input class="fi" type="email" id="femail" name="email" placeholder="your@email.com" size="20" autocomplete="email">
-      </div>
-
-      <div class="submit-row" style="display:flex;justify-content:center;">
-        <button class="btn btn-blue" id="submitBtn" onclick="handleSend(event)">
-          Send message
-          <span class="btn-arrow">
-            <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
-        </button>
-      </div>
-    </div>
-
-    <div class="success-msg" id="successMsg">
-      <div class="success-icon">✦</div>
-      <div class="success-title">Message sent.</div>
-      <p class="success-sub">Thanks for reaching out. We will be in touch within 24 hours at <strong>sri@natmad.studio</strong></p>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
 <footer>
-  <div class="ft-top">
-    <div>
-      <a href="/" class="ft-logo">
-        <div class="logo-star">
-          <img src="https://www.figma.com/api/mcp/asset/513fa857-d46d-4c14-b943-022d4c769e4d" alt="" width="20" height="22">
-        </div>
-        <span class="ft-logo-type">nat<span class="b">mad.</span></span>
-      </a>
-      <div class="ft-tagline">Product Design &amp; Experience Studio for AI &amp; Tech teams.</div>
-    </div>
-    <div class="ft-cols">
-      <div class="ft-col">
-        <div class="ft-col-h">Services</div>
-        <a href="#services">Product Experience Diagnosis</a>
-        <a href="#services">Targeted Design Sprint</a>
-        <a href="#services">Product Experience Partner</a>
-      </div>
-      <div class="ft-col">
-        <div class="ft-col-h">Connect</div>
-        <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="mailto:sri@natmad.studio">sri@natmad.studio</a>
-      </div>
-    </div>
-  </div>
-  <div class="ft-bottom">
-    <span class="ft-copy">© 2026 Natmad Studio. All rights reserved.</span>
-    <a href="mailto:sri@natmad.studio" class="ft-email">sri@natmad.studio</a>
-  </div>
+<div class="container">
+© 2026 Cirkl — Event coordination made simple
+</div>
 </footer>
 
-<script>
-/* CURSOR */
-const dot  = document.getElementById('curDot');
-const ring = document.getElementById('curRing');
-let mx=0, my=0, rx=0, ry=0;
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  dot.style.left = mx + 'px'; dot.style.top = my + 'px';
-});
-(function loop(){
-  rx += (mx - rx) * .1; ry += (my - ry) * .1;
-  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-  requestAnimationFrame(loop);
-})();
-document.querySelectorAll('a, button, .svc-row, .p-chip-item, select').forEach(el => {
-  el.addEventListener('mouseenter', () => { dot.classList.add('hl'); ring.classList.add('hl'); });
-  el.addEventListener('mouseleave', () => { dot.classList.remove('hl'); ring.classList.remove('hl'); });
-});
 
-/* SCROLL REVEAL */
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-}, { threshold: .07 });
-document.querySelectorAll('.rev').forEach(el => obs.observe(el));
-
-/* PLATFORM CHIPS */
-document.querySelectorAll('.p-chip-item').forEach(c => {
-  c.addEventListener('click', () => c.classList.toggle('on'));
-});
-
-/* FORM SUBMIT — Formspree */
-async function handleSend(e) {
-  e.preventDefault();
-  const name  = document.getElementById('fname').value.trim();
-  const email = document.getElementById('femail').value.trim();
-  if (!name)  { document.getElementById('fname').focus();  return; }
-  if (!email) { document.getElementById('femail').focus(); return; }
-
-  // collect platform selections
-  const selected = [...document.querySelectorAll('.p-chip-item.on')].map(c => c.dataset.v).join(', ');
-  document.getElementById('fplatform').value = selected;
-
-  const btn = document.getElementById('submitBtn');
-  btn.textContent = 'Sending...';
-  btn.disabled = true;
-
-  const data = {
-    name:     name,
-    company:  document.getElementById('fcompany').value.trim(),
-    platform: selected,
-    service:  document.getElementById('fservice').value,
-    email:    email
-  };
-
-  try {
-    const res = await fetch('https://formspree.io/f/xqeylppk', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(data)
-    });
-    if (res.ok) {
-      document.getElementById('theForm').style.display = 'none';
-      document.getElementById('successMsg').style.display = 'block';
-    } else {
-      btn.textContent = 'Try again';
-      btn.disabled = false;
-    }
-  } catch(err) {
-    btn.textContent = 'Try again';
-    btn.disabled = false;
-  }
-}
-</script>
 </body>
 </html>
